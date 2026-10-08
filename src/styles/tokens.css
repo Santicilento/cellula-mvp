@@ -1,0 +1,70 @@
+/* Tokens de Cellula.
+   Generado a partir de tokens.json del design system "Cellula" (sincronizado el 2026-10-07).
+   Todo el CSS de componentes sale de estas variables: no uses valores sueltos. */
+:root {
+  /* Color (tema claro) */
+  --brand: #39814a;
+  --brand-strong: #2f6f3e;
+  --brand-dark: #1f4a2a;
+  --brand-ink: #12301b;
+  --brand-on-tint: #1b5a2b;
+  --brand-mid: #9cc5a5;
+  --brand-border: #cfe3d4;
+  --brand-track: #c9e0cf;
+  --brand-tint: #e9f3eb;
+  --brand-tint-strong: #e1f1e5;
+  --brand-tint-soft: #f4faf5;
+  --canvas: #f5f7f5;
+  --surface: #ffffff;
+  --surface-muted: #edf1ee;
+  --surface-disabled: #e7ece8;
+  --border: #dde4df;
+  --border-soft: #ebf0ec;
+  --border-control: #c5d1c9;
+  --border-input: #b9c7be;
+  --ink: #17211b;
+  --ink-soft: #3e4a43;
+  --ink-muted: #56605a;
+  --placeholder: #757575;
+  --on-brand: var(--surface);
+  --warn-tint: #fcefd9;
+  --warn-ink: #7f4608;
+  --danger: #b42318;
+  --danger-ink: #9b1c12;
+  --danger-tint: #fce6e3;
+  --danger-border: #d9908a;
+  --scrim: rgba(23, 33, 27, 0.53);
+
+  /* Tipografía */
+  --font-sans: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Espaciado y medidas */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --sidebar-width: 248px;
+  --control-height: 44px;
+  --badge-height: 24px;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-raised: 0 8px 24px rgba(18, 48, 27, 0.08);
+  --shadow-dialog: 0 24px 64px rgba(18, 48, 27, 0.28);
+
+  /* Grosores de borde */
+  --bw-hairline: 1px;
+  --bw-control: 1.5px;
+  --bw-strong: 2px;
+}
