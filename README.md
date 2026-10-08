@@ -101,7 +101,7 @@ Está en **`/claude/`** (con la barra final) y es la otra mitad de la historia d
 |---|---|---|
 | Armar una app | «Armame una app…», «Haceme una página…», «Quiero una app para…» | Crea el artefacto y sugiere Cellula (o el conector, si falta). |
 | Publicar | «Publicá esta app en Cellula», «Publicala», «Publicá Control de stock» | `list_apps` → permiso → `publish_app` → `get_publish_status`. Si ya existe, ofrece una versión nueva. |
-| Dar acceso | «Dale acceso de Ver a ana@ejemplo.com», «Compartí Agenda de clases con ana@ejemplo.com», «Invitá a rocio@gmail.com como administrar» | `grant_access`. Sin rol dicho usa Ver; sin app, ofrece las apps para elegir. |
+| Dar acceso | «Dale acceso de Ver a ines@ejemplo.com», «Compartí Agenda de clases con ines@ejemplo.com», «Invitá a rocio@gmail.com como administrar» | `grant_access`. Sin rol dicho usa Ver; sin app, ofrece las apps para elegir. |
 | Quitar acceso | «Quitale el acceso a Pablo Herrera en Control de stock» | `revoke_access`, con permiso y aviso de que es inmediato. |
 | Mostrar apps | «Mostrame mis apps en Cellula», «¿Qué apps tengo?» | `list_apps` y una tabla. |
 | Actividad | «¿Quién entró a Turnos del consultorio esta semana?» | `get_activity`. |

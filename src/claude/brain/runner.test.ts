@@ -185,17 +185,17 @@ describe('publicar', () => {
 
 describe('dar y quitar acceso', () => {
   it('dar acceso: pide permiso, usa grant_access y queda en Cellula como acción del agente', async () => {
-    const { events, db, asked } = await turn('Dale acceso de Usar a ana@ejemplo.com en Turnos del consultorio')
+    const { events, db, asked } = await turn('Dale acceso de Usar a ines@ejemplo.com en Turnos del consultorio')
     expect(asked).toEqual(['grant_access'])
     expect(tools(events)).toEqual(['grant_access'])
-    expect(db.access['turnos-consultorio'].find((a) => a.email === 'ana@ejemplo.com')).toMatchObject({ role: 'usar' })
-    expect(db.events.find((e) => e.type === 'grant' && e.person === 'Ana')).toMatchObject({ actor: 'agent', agentName: 'Claude' })
+    expect(db.access['turnos-consultorio'].find((a) => a.email === 'ines@ejemplo.com')).toMatchObject({ role: 'usar' })
+    expect(db.events.find((e) => e.type === 'grant' && e.person === 'Ines')).toMatchObject({ actor: 'agent', agentName: 'Claude' })
     expect(text(events)).toContain('rol **Usar**')
     expect(text(events)).toContain('/#/apps/turnos-consultorio/accesos')
   })
 
   it('sin rol dicho usa Ver y lo aclara', async () => {
-    const { events } = await turn('Dale acceso a ana@ejemplo.com en Turnos del consultorio')
+    const { events } = await turn('Dale acceso a ines@ejemplo.com en Turnos del consultorio')
     expect(text(events)).toContain('el más restrictivo')
   })
 
@@ -206,11 +206,11 @@ describe('dar y quitar acceso', () => {
   })
 
   it('sin app en la charla ofrece las apps para elegir', async () => {
-    const { events } = await turn('Dale acceso de Ver a ana@ejemplo.com')
+    const { events } = await turn('Dale acceso de Ver a ines@ejemplo.com')
     expect(tools(events)).toEqual(['list_apps'])
     const choices = actions(events).filter((a) => a.kind === 'send')
     expect(choices.map((c) => c.label)).toContain('Turnos del consultorio')
-    expect(choices[0]).toMatchObject({ text: expect.stringContaining('ana@ejemplo.com en ') })
+    expect(choices[0]).toMatchObject({ text: expect.stringContaining('ines@ejemplo.com en ') })
   })
 
   it('quitar acceso: explica el efecto inmediato y la persona deja de figurar', async () => {
@@ -250,7 +250,7 @@ describe('consultas', () => {
   })
 
   it('actividad del agente después de usarlo', async () => {
-    const first = await turn('Dale acceso de Ver a ana@ejemplo.com en Turnos del consultorio')
+    const first = await turn('Dale acceso de Ver a ines@ejemplo.com en Turnos del consultorio')
     const second = await turn('mostrame la actividad de Turnos del consultorio', {}, first)
     expect(text(second.events)).toContain('Claude (agente)')
   })

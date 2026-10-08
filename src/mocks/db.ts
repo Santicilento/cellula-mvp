@@ -179,17 +179,17 @@ function seedWithApps(now: number): Db {
       acc('Martín Giménez', 'martin.gimenez@consultoriogimenez.com.ar', 'administrar', null, dayAt(today, 0, '08:40')),
       acc('Carolina Suárez', 'carolina.suarez@outlook.com', 'usar', null, dayAt(today, 1, '18:05')),
       acc('Pablo Herrera', 'pablo.herrera@estudioherrera.com.ar', 'ver', today + 54 * DAY, dayAt(today, 2, '11:20')),
-      acc('Ana Morales', 'ana.morales@gmail.com', 'ver', today + 8 * DAY, null),
+      acc('Inés Morales', 'ines.morales@gmail.com', 'ver', today + 8 * DAY, null),
       acc('Rocío Paz', 'rocio.paz@gmail.com', 'usar', null, dayAt(today, 4, '15:47')),
     ],
     'control-stock': [
       acc('Lucía Benítez', 'lucia.benitez@gmail.com', 'administrar', null, dayAt(today, 1, '12:25'), true),
       acc('Pablo Herrera', 'pablo.herrera@estudioherrera.com.ar', 'ver', null, dayAt(today, 1, '17:30')),
-      acc('Valentina Rojas', 'valentina.rojas@gmail.com', 'usar', null, dayAt(today, 3, '10:02')),
+      acc('Celeste Rojas', 'celeste.rojas@gmail.com', 'usar', null, dayAt(today, 3, '10:02')),
     ],
     'presupuestos-obra': [
       acc('Lucía Benítez', 'lucia.benitez@gmail.com', 'administrar', null, dayAt(today, 2, '09:30'), true),
-      acc('Julián Costa', 'julian.costa@gmail.com', 'usar', null, null),
+      acc('Bruno Costa', 'bruno.costa@gmail.com', 'usar', null, null),
     ],
     'calculadora-envios': [acc('Lucía Benítez', 'lucia.benitez@gmail.com', 'administrar', null, dayAt(today, 5, '11:10'), true)],
   }
@@ -212,7 +212,7 @@ function seedWithApps(now: number): Db {
     ev('publishing', 'agent', P, PN, dayAt(today, 0, '09:18'), { agentName: 'Claude Code' }),
     ev('entry', 'guest', T, TN, dayAt(today, 0, '09:12'), { person: 'Lucía Benítez', provider: 'google' }),
     ev('entry', 'guest', T, TN, dayAt(today, 0, '08:40'), { person: 'Martín Giménez', provider: 'microsoft' }),
-    ev('grant', 'agent', P, PN, dayAt(today, 0, '08:14'), { agentName: 'Claude Code', person: 'Julián Costa', role: 'usar' }),
+    ev('grant', 'agent', P, PN, dayAt(today, 0, '08:14'), { agentName: 'Claude Code', person: 'Bruno Costa', role: 'usar' }),
     // Ayer
     ev('entry', 'guest', T, TN, dayAt(today, 1, '18:05'), { person: 'Carolina Suárez', provider: 'microsoft' }),
     ev('entry', 'guest', S, SN, dayAt(today, 1, '17:30'), { person: 'Pablo Herrera', provider: 'google' }),

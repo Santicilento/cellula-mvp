@@ -100,7 +100,7 @@
 .cl-table .cl-warn { display: block; color: var(--warn-ink); font-size: 13px; font-weight: 600; }
 .cl-person { display: flex; align-items: center; gap: var(--space-3); }
 .cl-person strong { display: block; line-height: 20px; }
-.cl-person span { display: block; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.cl-person span:not(.cl-avatar) { display: block; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 
 /* Dialog */
 .cl-scrim { display: flex; align-items: center; justify-content: center; padding: var(--space-8); background: var(--scrim); }

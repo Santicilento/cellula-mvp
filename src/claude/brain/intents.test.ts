@@ -14,9 +14,9 @@ describe('frases que Cellula le sugiere pedir al agente ("Qué le podés pedir")
     expect(detectIntent('Publicá esta app en Cellula')).toEqual({ kind: 'publish', app: undefined })
   })
 
-  it('«Dale acceso de Ver a ana@ejemplo.com»', () => {
-    expect(detectIntent('Dale acceso de Ver a ana@ejemplo.com')).toMatchObject({
-      kind: 'grant', email: 'ana@ejemplo.com', role: 'ver', roleExplicit: true, app: undefined,
+  it('«Dale acceso de Ver a ines@ejemplo.com»', () => {
+    expect(detectIntent('Dale acceso de Ver a ines@ejemplo.com')).toMatchObject({
+      kind: 'grant', email: 'ines@ejemplo.com', role: 'ver', roleExplicit: true, app: undefined,
     })
   })
 
@@ -74,14 +74,14 @@ describe('publicar', () => {
 
 describe('dar acceso', () => {
   it('con app y rol', () => {
-    expect(detectIntent('Dale acceso de Usar a ana@ejemplo.com en Agenda de clases')).toMatchObject({
-      kind: 'grant', email: 'ana@ejemplo.com', role: 'usar', app: 'Agenda de clases',
+    expect(detectIntent('Dale acceso de Usar a ines@ejemplo.com en Agenda de clases')).toMatchObject({
+      kind: 'grant', email: 'ines@ejemplo.com', role: 'usar', app: 'Agenda de clases',
     })
   })
 
   it('"compartí" con una app y una persona', () => {
-    expect(detectIntent('Compartí Agenda de clases con ana@ejemplo.com')).toMatchObject({
-      kind: 'grant', email: 'ana@ejemplo.com', app: 'Agenda de clases',
+    expect(detectIntent('Compartí Agenda de clases con ines@ejemplo.com')).toMatchObject({
+      kind: 'grant', email: 'ines@ejemplo.com', app: 'Agenda de clases',
     })
   })
 
@@ -92,7 +92,7 @@ describe('dar acceso', () => {
   })
 
   it('sin rol dicho, usa Ver y lo marca como no explícito', () => {
-    expect(detectIntent('Invitá a ana@ejemplo.com')).toMatchObject({ kind: 'grant', role: 'ver', roleExplicit: false })
+    expect(detectIntent('Invitá a ines@ejemplo.com')).toMatchObject({ kind: 'grant', role: 'ver', roleExplicit: false })
   })
 
   it('sin email', () => {
@@ -102,8 +102,8 @@ describe('dar acceso', () => {
 
 describe('quitar acceso', () => {
   it('por email', () => {
-    expect(detectIntent('Sacale el acceso a ana@ejemplo.com de Agenda de clases')).toMatchObject({
-      kind: 'revoke', person: 'ana@ejemplo.com', app: 'Agenda de clases',
+    expect(detectIntent('Sacale el acceso a ines@ejemplo.com de Agenda de clases')).toMatchObject({
+      kind: 'revoke', person: 'ines@ejemplo.com', app: 'Agenda de clases',
     })
   })
 

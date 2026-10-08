@@ -61,7 +61,7 @@ export const alreadyConnected = () =>
   `Ya tenés **Cellula** conectada. Puedo:
 
 - **Publicar** una app: «Publicá esta app en Cellula».
-- **Dar acceso**: «Dale acceso de Ver a ana@ejemplo.com».
+- **Dar acceso**: «Dale acceso de Ver a ines@ejemplo.com».
 - **Quitar acceso**: «Quitale el acceso a Pablo Herrera en Control de stock».
 - **Contarte qué pasó**: «¿Quién entró a Turnos del consultorio esta semana?».`
 

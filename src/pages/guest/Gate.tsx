@@ -16,7 +16,7 @@ const ACCOUNTS = [
   { name: 'Lucía Benítez', email: 'lucia.benitez@gmail.com' },
   { name: 'Martín Giménez', email: 'martin.gimenez@consultoriogimenez.com.ar' },
   { name: 'Carolina Suárez', email: 'carolina.suarez@outlook.com' },
-  { name: 'Ana Morales', email: 'ana.morales@gmail.com' },
+  { name: 'Inés Morales', email: 'ines.morales@gmail.com' },
   { name: 'Diego Fernández', email: 'diego.fernandez@gmail.com' },
 ]
 
