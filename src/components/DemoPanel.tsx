@@ -1,6 +1,6 @@
 import * as Popover from '@radix-ui/react-popover'
 import { useQueryClient } from '@tanstack/react-query'
-import { ExternalLink, FlaskConical, RotateCcw, UserPlus } from 'lucide-react'
+import { ExternalLink, FlaskConical, MessageSquare, RotateCcw, UserPlus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useApps, useDemo, useDemoActions } from '../api/queries'
@@ -67,6 +67,13 @@ export function DemoPanel() {
               onClick={() => actions.simulateInvites.mutate()}
             >
               Que ingresen los invitados{pending > 0 ? ` (${pending})` : ''}
+            </Button>
+            <Button
+              size="sm"
+              icon={<MessageSquare className="cl-i" aria-hidden="true" />}
+              onClick={() => window.open(`${import.meta.env.BASE_URL}claude/`, '_blank', 'noopener')}
+            >
+              Abrir Claude (demo)
             </Button>
             <Button
               size="sm"

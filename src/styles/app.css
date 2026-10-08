@@ -342,6 +342,17 @@ a.add-card:hover { background: var(--brand-tint); }
 .appframe__hint { padding: 14px var(--space-4); border-radius: var(--radius-md); background: var(--warn-tint); color: var(--warn-ink); font-size: 15px; line-height: 22px; }
 .appframe__caption { font-size: 13px; color: var(--ink-muted); }
 
+/* Autorizar al agente (OAuth) */
+.authorize__who { width: 100%; display: flex; align-items: center; gap: var(--space-3); padding: 12px var(--space-4); background: var(--canvas); border-radius: var(--radius-lg); text-align: left; }
+.authorize__who > span:last-child { display: flex; flex-direction: column; min-width: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.authorize__who b { color: var(--ink); font-size: 15px; }
+.authorize__perms { width: 100%; text-align: left; }
+.authorize__perms ul { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-direction: column; gap: 10px; }
+.authorize__perms li { display: flex; align-items: center; gap: var(--space-3); font-size: 15px; color: var(--ink); }
+.guest .cl-auth .authorize__label { font: 700 13px/20px var(--font-sans); color: var(--ink-muted); text-transform: none; }
+.authorize__actions { width: 100%; display: flex; gap: var(--space-3); }
+.authorize__actions .cl-btn { flex: 1; }
+
 /* ───────────── Modo demo ───────────── */
 
 .demo-fab { position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 40; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border: var(--bw-hairline) solid var(--border-control); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink-soft); font: 600 13px/1 var(--font-sans); cursor: pointer; box-shadow: var(--shadow-raised); }

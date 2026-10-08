@@ -10,6 +10,7 @@ import Datos from './pages/app/Datos'
 import Agente from './pages/Agente'
 import ComoFunciona from './pages/ComoFunciona'
 import AppFrame from './pages/guest/AppFrame'
+import Autorizar from './pages/guest/Autorizar'
 import Gate from './pages/guest/Gate'
 import SinAcceso from './pages/guest/SinAcceso'
 import MisApps from './pages/MisApps'
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="plan" element={<Plan />} />
           <Route path="como-funciona" element={<ComoFunciona />} />
         </Route>
+        <Route path="autorizar" element={<Autorizar />} />
         <Route path="i/:slug" element={<Gate />} />
         <Route path="i/:slug/app" element={<AppFrame />} />
         <Route path="i/:slug/sin-acceso" element={<SinAcceso />} />

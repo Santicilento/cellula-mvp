@@ -14,7 +14,7 @@ import type {
   User,
 } from '../api/types'
 
-const STORAGE_KEY = 'cellula-mvp:db:v1'
+const STORAGE_KEY = 'cellula-mvp:db:v2'
 
 export const TRIAL_DAYS = 14
 export const TRIAL_REQUIRED = 3
@@ -37,6 +37,8 @@ export interface AppRecord {
   origin: Origin
   publishedAt: number | null
   lastPublishedBy: Origin
+  /** Qué agente hizo la última publicación (cuando lastPublishedBy = agent). */
+  lastAgentName: string | null
   fileName: string | null
   fileSize: number | null
   /** Publicación real simulada: avanza con el reloj. */
@@ -86,6 +88,14 @@ export interface AgentRecord {
   tool: AgentTool
   device: string
   lastUsedAt: number
+  /** Token de acceso del conector (OAuth). Solo lo tienen los agentes que se conectaron por el flujo de autorización. */
+  token: string | null
+}
+
+export interface OAuthCodeRecord {
+  code: string
+  clientId: string
+  createdAt: number
 }
 
 export interface NotificationRecord extends Omit<AppNotification, 'at'> {
@@ -94,7 +104,7 @@ export interface NotificationRecord extends Omit<AppNotification, 'at'> {
 }
 
 export interface Db {
-  v: 1
+  v: 2
   seq: number
   seededAt: number
   scenario: 'with-apps' | 'new-user'
@@ -106,6 +116,7 @@ export interface Db {
   events: EventRecord[]
   agents: AgentRecord[]
   agentAttempts: Record<AgentTool, number>
+  oauthCodes: OAuthCodeRecord[]
   notifications: NotificationRecord[]
 }
 
@@ -138,22 +149,22 @@ function seedWithApps(now: number): Db {
   const apps: AppRecord[] = [
     {
       id: 'app_turnos', slug: 'turnos-consultorio', name: 'Turnos del consultorio', status: 'active', origin: 'agent',
-      publishedAt: today - 3 * DAY + 15 * HOUR, lastPublishedBy: 'agent', fileName: 'turnos-consultorio.zip', fileSize: 2_410_000,
+      publishedAt: today - 3 * DAY + 15 * HOUR, lastPublishedBy: 'agent', lastAgentName: 'Claude Code', fileName: 'turnos-consultorio.zip', fileSize: 2_410_000,
       publishStartedAt: null, frozenPublish: null, statusBefore: null, storageMB: 3.2, entriesThisMonth: 97,
     },
     {
       id: 'app_stock', slug: 'control-stock', name: 'Control de stock', status: 'active', origin: 'manual',
-      publishedAt: dayAt(today, 1, '12:20'), lastPublishedBy: 'manual', fileName: 'control-stock.zip', fileSize: 1_730_000,
+      publishedAt: dayAt(today, 1, '12:20'), lastPublishedBy: 'manual', lastAgentName: null, fileName: 'control-stock.zip', fileSize: 1_730_000,
       publishStartedAt: null, frozenPublish: null, statusBefore: null, storageMB: 1.4, entriesThisMonth: 31,
     },
     {
       id: 'app_presupuestos', slug: 'presupuestos-obra', name: 'Presupuestos de obra', status: 'publishing', origin: 'agent',
-      publishedAt: null, lastPublishedBy: 'agent', fileName: 'presupuestos-obra.zip', fileSize: 3_050_000,
+      publishedAt: null, lastPublishedBy: 'agent', lastAgentName: 'Claude Code', fileName: 'presupuestos-obra.zip', fileSize: 3_050_000,
       publishStartedAt: null, frozenPublish: { stage: 2, percent: 64 }, statusBefore: null, storageMB: 0.6, entriesThisMonth: 14,
     },
     {
       id: 'app_envios', slug: 'calculadora-envios', name: 'Calculadora de envíos', status: 'error', origin: 'manual',
-      publishedAt: today - 5 * DAY + 11 * HOUR, lastPublishedBy: 'manual', fileName: 'calculadora-envios.zip', fileSize: 980_000,
+      publishedAt: today - 5 * DAY + 11 * HOUR, lastPublishedBy: 'manual', lastAgentName: null, fileName: 'calculadora-envios.zip', fileSize: 980_000,
       publishStartedAt: null, frozenPublish: null, statusBefore: null, storageMB: 0.2, entriesThisMonth: 0,
     },
   ]
@@ -227,7 +238,7 @@ function seedWithApps(now: number): Db {
   }))
 
   return {
-    v: 1,
+    v: 2,
     seq,
     seededAt: now,
     scenario: 'with-apps',
@@ -238,17 +249,18 @@ function seedWithApps(now: number): Db {
     access,
     events,
     agents: [
-      { id: 'ag_claude', tool: 'claude', device: 'MacBook de Lucía', lastUsedAt: dayAt(today, 0, '09:18') },
-      { id: 'ag_cursor', tool: 'cursor', device: 'PC del estudio', lastUsedAt: today - 3 * DAY + 16 * HOUR },
+      { id: 'ag_claude', tool: 'claude', device: 'MacBook de Lucía', lastUsedAt: dayAt(today, 0, '09:18'), token: null },
+      { id: 'ag_cursor', tool: 'cursor', device: 'PC del estudio', lastUsedAt: today - 3 * DAY + 16 * HOUR, token: null },
     ],
-    agentAttempts: { claude: 0, cursor: 0 },
+    agentAttempts: { claude: 0, cursor: 0, 'claude-web': 0 },
+    oauthCodes: [],
     notifications: [],
   }
 }
 
 function seedNewUser(now: number): Db {
   return {
-    v: 1,
+    v: 2,
     seq: 100,
     seededAt: now,
     scenario: 'new-user',
@@ -259,7 +271,8 @@ function seedNewUser(now: number): Db {
     access: {},
     events: [],
     agents: [],
-    agentAttempts: { claude: 0, cursor: 0 },
+    agentAttempts: { claude: 0, cursor: 0, 'claude-web': 0 },
+    oauthCodes: [],
     notifications: [],
   }
 }
@@ -275,7 +288,7 @@ export function load(): Db {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
       const parsed = JSON.parse(raw) as Db
-      if (parsed?.v === 1) return parsed
+      if (parsed?.v === 2) return parsed
     }
   } catch {
     // estado dañado: se vuelve a sembrar
@@ -318,7 +331,7 @@ export function tick(db: Db, now: number): void {
       db.events.push({
         id: nextId(db, 'ev'), type: 'published',
         actor: app.lastPublishedBy === 'agent' ? 'agent' : 'panel',
-        agentName: app.lastPublishedBy === 'agent' ? 'Claude Code' : null,
+        agentName: app.lastPublishedBy === 'agent' ? (app.lastAgentName ?? 'Claude Code') : null,
         provider: null, appSlug: app.slug, appName: app.name, at: app.publishedAt, person: null, role: null, fromRole: null,
       })
       pushNotification(db, {

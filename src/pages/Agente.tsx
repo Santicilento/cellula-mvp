@@ -8,11 +8,12 @@ import type { AgentConnection, AgentTestResult, AgentTool } from '../api/types'
 import { PageHeader } from '../components/layout/PageHeader'
 import { Badge } from '../components/ui/Badge'
 import { Banner } from '../components/ui/Banner'
-import { Button } from '../components/ui/Button'
+import { Button, ButtonAnchor } from '../components/ui/Button'
 import { CodeBlock } from '../components/ui/CodeBlock'
 import { ConfirmDialog } from '../components/ui/ConfirmDialog'
 import { CopyIconButton } from '../components/ui/CopyButton'
 import { Skeleton } from '../components/ui/Skeleton'
+import { AGENT_NAME, MCP_URL } from '../lib/agents'
 import { ago, clock } from '../lib/format'
 import { usePageTitle } from '../lib/usePageTitle'
 
@@ -30,6 +31,7 @@ interface Step {
   title: string
   text?: string
   code?: string
+  action?: { label: string; href: string }
 }
 
 const STEPS: Record<AgentTool, Step[]> = {
@@ -45,9 +47,20 @@ const STEPS: Record<AgentTool, Step[]> = {
     { title: 'Entrá a tu cuenta de Cellula', text: 'Cursor te va a pedir iniciar sesión. Aceptá y seguí los pasos en el navegador.' },
     { title: 'Probá que funcione', text: 'Escribile a tu agente: «Mostrame mis apps en Cellula». Si te responde con tu lista, ya está.' },
   ],
+  'claude-web': [
+    {
+      title: 'Abrí los conectores de Claude',
+      text: 'En Claude, entrá a Configuración y elegí Conectores.',
+      action: { label: 'Abrir Claude (demo)', href: `${import.meta.env.BASE_URL}claude/#/configuracion/conectores` },
+    },
+    { title: 'Agregá un conector personalizado', text: 'Elegí «Agregar conector personalizado», ponele Cellula de nombre y pegá esta dirección.', code: MCP_URL },
+    { title: 'Entrá a tu cuenta de Cellula', text: 'Tocá Conectar. Se abre Cellula para que autorices a Claude: apretá Permitir.' },
+    { title: 'Probá que funcione', text: 'Escribile a Claude: «Mostrame mis apps en Cellula». Si te responde con tu lista, ya está.' },
+  ],
 }
 
-const TOOL_NAME: Record<AgentTool, string> = { claude: 'Claude Code', cursor: 'Cursor' }
+const TOOL_NAME = AGENT_NAME
+const TOOL_ORDER: AgentTool[] = ['claude', 'cursor', 'claude-web']
 
 /** "hoy, 09:18", "ayer", "hace 3 días". */
 function usedLabel(iso: string): string {
@@ -84,8 +97,9 @@ export default function Agente() {
         <Tabs.Root value={tool} onValueChange={(v) => { setTool(v as AgentTool); setResult(null) }} className="cl-card agent-main">
           <div className="agent-main__head">
             <Tabs.List className="cl-seg" aria-label="Herramienta">
-              <Tabs.Trigger value="claude" className="cl-seg__item">Claude Code</Tabs.Trigger>
-              <Tabs.Trigger value="cursor" className="cl-seg__item">Cursor</Tabs.Trigger>
+              {TOOL_ORDER.map((t) => (
+                <Tabs.Trigger key={t} value={t} className="cl-seg__item">{TOOL_NAME[t]}</Tabs.Trigger>
+              ))}
             </Tabs.List>
             {!agent.data ? null : current ? (
               <Badge tone="ok" dot>Conectado · {usedLabel(current.lastUsedAt)}</Badge>
@@ -94,7 +108,7 @@ export default function Agente() {
             )}
           </div>
 
-          {(['claude', 'cursor'] as AgentTool[]).map((t) => (
+          {TOOL_ORDER.map((t) => (
             <Tabs.Content key={t} value={t} className="agent-steps-wrap">
               <ol className="cl-steps">
                 {STEPS[t].map((s, i) => (
@@ -104,6 +118,11 @@ export default function Agente() {
                       <h3>{s.title}</h3>
                       {s.text && <p>{s.text}</p>}
                       {s.code && <CodeBlock code={s.code} />}
+                      {s.action && (
+                        <div>
+                          <ButtonAnchor href={s.action.href} target="_blank" rel="noopener" size="sm">{s.action.label}</ButtonAnchor>
+                        </div>
+                      )}
                     </div>
                   </li>
                 ))}
@@ -148,7 +167,7 @@ export default function Agente() {
                 {connections.map((c) => (
                   <li key={c.id}>
                     <span className="cl-ico cl-ico--square">
-                      {c.tool === 'claude' ? <Sparkles className="cl-i" aria-hidden="true" /> : <MousePointer2 className="cl-i" aria-hidden="true" />}
+                      {c.tool === 'cursor' ? <MousePointer2 className="cl-i" aria-hidden="true" /> : <Sparkles className="cl-i" aria-hidden="true" />}
                     </span>
                     <span className="agent-list__text">
                       <b>{TOOL_NAME[c.tool]}</b>

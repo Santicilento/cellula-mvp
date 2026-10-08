@@ -5,7 +5,7 @@ export type Role = 'ver' | 'usar' | 'administrar'
 export type AppStatus = 'active' | 'publishing' | 'error'
 export type Origin = 'agent' | 'manual'
 export type Provider = 'google' | 'microsoft'
-export type AgentTool = 'claude' | 'cursor'
+export type AgentTool = 'claude' | 'cursor' | 'claude-web'
 
 export interface User {
   id: string
@@ -152,6 +152,16 @@ export interface AgentConnection {
 
 export interface AgentStatus {
   connections: AgentConnection[]
+}
+
+export interface OAuthAuthorizeInput {
+  client_id: string
+  state: string
+}
+
+export interface OAuthAuthorizeResult {
+  code: string
+  state: string
 }
 
 export interface AgentTestResult {
