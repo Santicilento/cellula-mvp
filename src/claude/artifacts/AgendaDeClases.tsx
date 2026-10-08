@@ -15,9 +15,9 @@ const CLASES_INICIALES: Clase[] = [
   { id: 'lun-09', dia: 'Lun', hora: '09:00', nombre: 'Hatha suave', cupo: 10, anotadas: ['Camila R.', 'Sofi P.', 'Marina L.'] },
   { id: 'lun-1830', dia: 'Lun', hora: '18:30', nombre: 'Vinyasa', cupo: 12, anotadas: ['Julia M.', 'Paula G.', 'Romina S.', 'Eli T.', 'Noe B.'] },
   { id: 'mar-08', dia: 'Mar', hora: '08:00', nombre: 'Yin yoga', cupo: 8, anotadas: ['Marina L.', 'Dani C.'] },
-  { id: 'mie-1830', dia: 'Mié', hora: '18:30', nombre: 'Vinyasa', cupo: 12, anotadas: ['Julia M.', 'Paula G.', 'Lau V.', 'Cande R.', 'Romina S.', 'Eli T.', 'Noe B.', 'Flor A.', 'Mili D.', 'Sofi P.', 'Ana K.', 'Vero C.'] },
+  { id: 'mie-1830', dia: 'Mié', hora: '18:30', nombre: 'Vinyasa', cupo: 12, anotadas: ['Julia M.', 'Paula G.', 'Lau V.', 'Cande R.', 'Romina S.', 'Eli T.', 'Noe B.', 'Flor A.', 'Mili D.', 'Sofi P.', 'Lola K.', 'Vero C.'] },
   { id: 'jue-09', dia: 'Jue', hora: '09:00', nombre: 'Hatha suave', cupo: 10, anotadas: ['Camila R.'] },
-  { id: 'vie-18', dia: 'Vie', hora: '18:00', nombre: 'Restaurativo', cupo: 8, anotadas: ['Dani C.', 'Lau V.', 'Flor A.', 'Ana K.', 'Vero C.', 'Mili D.', 'Cande R.'] },
+  { id: 'vie-18', dia: 'Vie', hora: '18:00', nombre: 'Restaurativo', cupo: 8, anotadas: ['Dani C.', 'Lau V.', 'Flor A.', 'Lola K.', 'Vero C.', 'Mili D.', 'Cande R.'] },
   { id: 'sab-10', dia: 'Sáb', hora: '10:00', nombre: 'Vinyasa flow', cupo: 14, anotadas: ['Paula G.', 'Julia M.', 'Eli T.'] },
 ]
 

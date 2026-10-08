@@ -22,7 +22,7 @@ const CURSOR_CFG = '{ "mcpServers": { "cellula": { "url": "https://mcp.cellula.a
 
 const PHRASES = [
   '«Publicá esta app en Cellula»',
-  '«Dale acceso de Ver a ana@ejemplo.com»',
+  '«Dale acceso de Ver a ines@ejemplo.com»',
   '«Quitale el acceso a Pablo Herrera en Control de stock»',
   '«¿Quién entró a Turnos del consultorio esta semana?»',
 ]

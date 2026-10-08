@@ -25,7 +25,7 @@ function pick<T>(r: () => number, list: readonly T[]): T {
   return list[Math.floor(r() * list.length)]
 }
 
-const FIRST = ['Julieta', 'Esteban', 'Valeria', 'Hugo', 'Camila', 'Tomás', 'Lucas', 'Sofía', 'Martina', 'Joaquín', 'Florencia', 'Nicolás', 'Agustina', 'Matías', 'Bianca', 'Ramiro', 'Delfina', 'Gonzalo', 'Micaela', 'Franco', 'Abril', 'Ignacio', 'Renata', 'Facundo']
+const FIRST = ['Julieta', 'Esteban', 'Valeria', 'Hugo', 'Camila', 'Tomás', 'Lucas', 'Sofía', 'Martina', 'Joaquín', 'Florencia', 'Nicolás', 'Agustina', 'Matías', 'Bianca', 'Ramiro', 'Delfina', 'Gonzalo', 'Micaela', 'Franco', 'Pilar', 'Ignacio', 'Renata', 'Facundo']
 const LAST = ['Roldán', 'Quiroga', 'Núñez', 'Maidana', 'Ferreyra', 'Acosta', 'Peralta', 'Medina', 'Sosa', 'Benítez', 'Ríos', 'Aguirre', 'Molina', 'Castro', 'Vega', 'Ibarra', 'Luna', 'Cabrera', 'Domínguez', 'Ortiz', 'Silva', 'Paz', 'Herrera', 'Godoy']
 const PROS = ['Dr. Martín Giménez', 'Lic. Paula Ledesma', 'Dra. Julieta Sosa', 'Lic. Andrés Prieto'] as const
 const OBRAS = ['OSDE', 'Swiss Medical', 'Galeno', 'Medifé', 'PAMI', 'Particular'] as const
